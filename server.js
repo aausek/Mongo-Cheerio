@@ -22,14 +22,14 @@ app.use(bodyParser.urlencoded({
 }));
 
 //Setting up connection
-var PORT = process.env.PORT || 3001;
+var PORT = process.env.PORT || 3000;
 
 //Make public a static dir
 app.use(express.static("public"));
 var db = mongoose.connection;
 
 //Database configuration with mongoose
-var databaseUri = "mongodb://heroku_fbm9dtm8:e9c01haal89lnlum8becvn1jpe@ds017726.mlab.com:17726/heroku_fbm9dtm8";
+var databaseUri = "mongodb://localhost/cnetarticles";
 
 if (process.env.MONGODB_URI) {
     mongoose.connect(process.env.MONGODB_URI);
