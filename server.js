@@ -4,6 +4,7 @@ var bodyParser = require("body-parser"),
     express = require("express"),
     hbs = require("express-handlebars"),
     mongoose = require("mongoose"),
+    logger = require("morgan"),
     request = require("request");
 
 //Requiring Note & Article models
@@ -16,47 +17,41 @@ mongoose.Promise = Promise;
 //Start express app
 var app = express();
 
-//Use body-parser pkg with app
+//Use body-parser & morgan pkg with app
+app.use(logger("dev"));
 app.use(bodyParser.urlencoded({
     extended: false
 }));
 
 //Setting up connection
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 3001;
 
 //Make public a static dir
 app.use(express.static("public"));
-var db = mongoose.connection;
 
 //Database configuration with mongoose
-var databaseUri = "mongodb://localhost/cnetarticles";
-
-if (process.env.MONGODB_URI) {
-    mongoose.connect(process.env.MONGODB_URI);
-} else {
-    mongoose.connect(databaseUri);
-}
-
-//Display mongoose errors
-db.on("error", function(error) {
-    console.log("Mongoose Error:", error);
+var db = process.env.MONGODB_URI || "mongodb://localhost/nytarticles";
+mongoose.connect(db, function(error){
+   if (error) {
+    console.log(error);
+    } else {
+        console.log("Mongoose connection successful!"); 
+    } 
 });
 
-//Once logged into to the db through mongoose, log a successful msg
-db.once("once", function() {
-    console.log("Mongoose connection successful!");
-});
+
 
 //ROUTES
 
-//GET request to scrape the CNET website
+//GET request to scrape the New York Times
 app.get("/scrape", function(req, res) {
     //Grab body of the html of via request
-    request("https://www.cnet.com/", function(error, response, html) {
+    request("https://www.nytimes.com/", function(error, response, html) {
+        console.log("scraping");
         //Load into cheerio and assign to $
         var $ = cheerio.load(html);
         //Grab every h2 within a title tag
-        $("article h2").each(function(i, element) {
+        $(".story-heading").each(function(i, element) {
             //Save empty result object
             var result = {};
 
@@ -81,6 +76,7 @@ app.get("/scrape", function(req, res) {
                 }
             });
         });
+        // res.redirect("/");
     });
     //Tell me the browser
     res.send("Scrape Complete");
