@@ -1,50 +1,95 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
+
+<head>
     <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=El+Messiri|Raleway" rel="stylesheet">
     <title>Scraping With Mongoose</title>
     <style>
-      body { background-color: #F2F6D0 }
-      #wrapper {
+    body {
+        background-color: #4eaaa4
+    }
+    
+    .container {
         width: 960px;
         margin-left: auto;
         margin-right: auto;
-        padding-top: 5%;
-      }
-      #articles {
+        padding-top: 2%;
+    }
+    
+    #articles {
         display: inline-block;
         overflow: auto;
         width: 60%;
         height: 700px;
-      }
-      #notes {
+    }
+    
+    #notes {
         float: right;
         width: 30%;
-      }
-      textarea, input {
+        margin-top: -52px;
+    }
+    
+    textarea,
+    input {
         display: block;
         width: 100%;
-        background-color: #FCF5C7;
-      }
-      input {
+    }
+
+    #titleinput, #bodyinput {
+      background-color: #dfdddd;
+    }
+    
+    input {
         height: 36px;
         font-size: 24px;
-      }
-      textarea {
+    }
+    
+    textarea {
         height: 200px;
         font-size: 18px;
-      }
+    }
+
+    h1 {
+      font-weight: bold;
+    }
+
+    h1, h4 {
+      font-family: 'Raleway', sans-serif;
+    }
+
+    h4 {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    
+    h3 {
+      text-align: center;
+    }
+
     </style>
-  </head>
-  <body>
-    <div id="wrapper">
-      <h1 align="center">| New York Times Scraper |</h1>
-      <br>
-      <h2><i><u>Latest News:</u></i></h2>
-      <div id="articles"></div>
-      <div id="notes"></div>
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron" style="text-align:center">
+              <h1>| New York Times Scraper |</h1>
+        </div>
+        
+        <h2><i><u><b><br>Latest News:</b></u></i></h2>
+        <div id="articles"></div>
+        <div id="notes"></div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    
     <script src="app.js"></script>
-  </body>
+</body>
+
 </html>
