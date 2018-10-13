@@ -1,20 +1,21 @@
 // Grab the articles as a json
-$.getJSON("/articles", function(data) {
+$.getJSON("/articles", function (data) {
     // For each one
-    for (var i = 0; i < data.length; i++) {
+    data.forEach((val, i) => {
         // Display the apropos information on the page
-        $("#articles").append("<h4 data-id='" + data[i]._id + "'>" + data[i].title+ "</h4>");
-        $("#articles").append("<h5 data-id='" + data[i]._id + "'>" + "<kbd>" + data[i].link + "</kbd></h5><br>");
-    }
+        $("#articles").append("<h4 data-id='" + val._id + "'>" + val.title + "</h4>");
+        $("#articles").append("<h5 data-id='" + val._id + "'>" + "<kbd>" + val.link + "</kbd></h5><br>");
+    });
+
 });
 
 
 // Whenever someone clicks a p tag
-$(document).on("click", "h4", function() {
+$(document).on("click", "h4", function () {
     // Empty the notes from the note section
     $("#notes").empty();
     // Save the id from the p tag
-    var thisId = $(this).attr("data-id");
+    let thisId = $(this).attr("data-id");
 
     // Now make an ajax call for the Article
     $.ajax({
@@ -22,7 +23,7 @@ $(document).on("click", "h4", function() {
             url: "/articles/" + thisId
         })
         // With that done, add the note information to the page
-        .done(function(data) {
+        .done(function (data) {
             console.log(data);
             // The title of the article
             $("#notes").append("<h3>" + data.title + "</h3>");
@@ -44,9 +45,9 @@ $(document).on("click", "h4", function() {
 });
 
 // When you click the savenote button
-$(document).on("click", "#savenote", function() {
+$(document).on("click", "#savenote", function () {
     // Grab the id associated with the article from the submit button
-    var thisId = $(this).attr("data-id");
+    let thisId = $(this).attr("data-id");
 
     // Run a POST request to change the note, using what's entered in the inputs
     $.ajax({
@@ -60,7 +61,7 @@ $(document).on("click", "#savenote", function() {
             }
         })
         // With that done
-        .done(function(data) {
+        .done(function (data) {
             // Log the response
             console.log(data);
             // Empty the notes section
